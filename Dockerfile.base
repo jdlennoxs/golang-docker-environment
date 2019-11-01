@@ -1,0 +1,7 @@
+FROM golang:alpine AS builder
+WORKDIR /go/src/app
+COPY . .
+RUN apk add --no-cache --virtual dependency git \
+    && go get -d -v ./... \
+    && apk del dependency
+EXPOSE 3000
